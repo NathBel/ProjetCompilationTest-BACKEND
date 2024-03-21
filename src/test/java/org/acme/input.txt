@@ -1,0 +1,7 @@
+droite
+gauche
+haut
+bas
+bas
+droite
+droite

@@ -22,9 +22,6 @@ public class Voiture {
 
         }
 
-
-
-
         switch(direction) {
             case "left":
                 System.out.println("Turning left");
