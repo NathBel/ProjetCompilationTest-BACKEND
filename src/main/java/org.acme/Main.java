@@ -8,12 +8,8 @@ import java.net.URISyntaxException;
 
 @QuarkusMain
 public class Main {
-    static WebSocketConnection webSocketConnection ;
     public static void main(String... args) throws URISyntaxException {
-        Quarkus.run(MyApp.class, args);
 
-        URI endpointURI = new URI("ws://mqtt.eclipseproject.io:443/mqtt");
-   webSocketConnection = new WebSocketConnection(endpointURI);
-        //WebSocketConnection webSocketConnection = new WebSocketConnection(endpointURI);
+        Quarkus.run(GameWebSocket.class, args);
     }
 }
