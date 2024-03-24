@@ -1,0 +1,78 @@
+#boxSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+    padding: 0 10% 0 10%;
+    background: #d8daff;  
+}
+
+#boxInfoGame {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+}
+
+#boxScore {
+    display: flex;
+    gap: 10px;
+}
+
+#footballStadium {
+    width: 100%;
+}
+
+#boxStadium {
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+    padding: 15px;
+}
+
+.car {
+    position: absolute;
+    width: 5%;
+    height: auto;
+}
+
+#buttonJoinGame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.rotated-up {
+    transform: rotate(0deg);
+}
+
+.rotated-down {
+    transform: rotate(180deg);
+}
+
+.rotated-left {
+    transform: rotate(-90deg);
+}
+
+.rotated-right {
+    transform: rotate(90deg);
+}
+
+#soccerBall {
+    position: absolute;
+    width: 3%;
+    height: auto;
+}
+
+#boxActionGame {
+    display: flex;
+}
+
+#buttonStopGame {
+    margin: auto;
+}
+
+
