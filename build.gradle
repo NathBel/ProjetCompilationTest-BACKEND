@@ -14,10 +14,7 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-resteasy-reactive'
     implementation 'io.quarkus:quarkus-arc'
-    implementation 'javax.websocket:javax.websocket-api:1.1'
-    implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
-    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
-    implementation 'org.ow2.asm:asm:7.3'
+    implementation("io.quarkus:quarkus-websockets")
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation "io.quarkus:quarkus-jacoco"
