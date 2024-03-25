@@ -23,6 +23,9 @@ public class GameWebSocket implements QuarkusApplication {
 
     GameService gameService = GameService.getInstance();
 
+    public Set<Session> getSessions() {
+        return sessions;
+    }
 
     @OnOpen
     public void onOpen(@PathParam("id") String gameId, Session session) {
