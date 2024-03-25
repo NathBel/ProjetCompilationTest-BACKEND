@@ -79,6 +79,7 @@ const GameSection = (props) => {
                 const dataParts = event.data.split(':');
                 const messageType = dataParts[0];
                 const messageContent = dataParts[1];
+
             
                 if (messageType === "green") { 
                     setCurrentPlayer("player1");
@@ -156,6 +157,11 @@ const GameSection = (props) => {
                         setGoalsPlayer2(prevState => prevState + 1);
                     }
                     props.handleShowAlertMessage('BUUUUUUUUUUUUUT !', 'success');
+                } else if (messageType === "timer") {
+                    // Remaining time in seconds
+                    console.log('Remaining time: ', messageContent);
+                    setRemainingTime(parseInt(messageContent));
+                
                 } else { 
                     console.log("=> Message received: ", event.data);
                 } 
@@ -238,6 +244,13 @@ const GameSection = (props) => {
         };
     }, [currentPlayer]);
 
+    function formatTime(remainingSeconds) {
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
+        const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        return formattedTime;
+    }
+
 
     return (
         <Box ref={props.refGame} id={styles.boxSection}>
@@ -248,7 +261,7 @@ const GameSection = (props) => {
                     <Typography variant="h2" color="secondary">{goalsPlayer2}</Typography>
                 </Box>
                 <Box id={styles.boxTime}>
-                    <Typography variant="h2" color="initial">time</Typography>
+                    <Typography variant="h2" color="initial">{formatTime(remainingTime)}</Typography>
                 </Box>
             </Box>
             <Box id={styles.boxStadium}>   
