@@ -23,6 +23,8 @@ const GameSection = (props) => {
     const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
     // "player1" or "player2" or null
     const [currentPlayer, setCurrentPlayer] = useState<String | null>(null)
+    const [goalsPlayer1, setGoalsPlayer1] = useState(0);
+    const [goalsPlayer2, setGoalsPlayer2] = useState(0);
 
     const [topPointPlayer1, setTopPointPlayer1] = useState({ x: 0, y: 0 });
     const [bottomPointPlayer1, setBottomPointPlayer1] = useState({ x: 0, y: 0 });
@@ -146,6 +148,14 @@ const GameSection = (props) => {
                     // console.log('Width player2: ', messageContent);
                     const [width, height] = messageContent.split(',').map(value => parseFloat(value));
                     setSizePlayer2({ width: width, height: height });
+                } else if (messageType === "goal") {
+                    console.log('Goal: ', messageContent);
+                    if (messageContent === "player1") {
+                        setGoalsPlayer1(prevState => prevState + 1);
+                    } else if (messageContent === "player2") {
+                        setGoalsPlayer2(prevState => prevState + 1);
+                    }
+                    props.handleShowAlertMessage('BUUUUUUUUUUUUUT !', 'success');
                 } else { 
                     console.log("=> Message received: ", event.data);
                 } 
@@ -173,6 +183,9 @@ const GameSection = (props) => {
             setIsGameJoin(false)
             setIsAskToJoin(false)
             setIsGameStarted(false)
+            // setTwoPlayerConnected(false)
+            setGoalsPlayer1(0)
+            setGoalsPlayer2(0)
         }
     }, [serverRunning])
 
@@ -230,9 +243,9 @@ const GameSection = (props) => {
         <Box ref={props.refGame} id={styles.boxSection}>
             <Box id={styles.boxInfoGame}>
                 <Box id={styles.boxScore}>
-                    <Typography variant="h2" color="primary">0</Typography>
+                    <Typography variant="h2" color="primary">{goalsPlayer1}</Typography>
                     <Typography variant="h2" color="initial">-</Typography>
-                    <Typography variant="h2" color="secondary">0</Typography>
+                    <Typography variant="h2" color="secondary">{goalsPlayer2}</Typography>
                 </Box>
                 <Box id={styles.boxTime}>
                     <Typography variant="h2" color="initial">time</Typography>

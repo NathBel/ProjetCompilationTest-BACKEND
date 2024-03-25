@@ -183,38 +183,41 @@ public class Game {
             double ballNewX = ball.getX();
             double ballNewY = ball.getY();
 
-            Random random = new Random();
-
+            
             List<String> ballCoordinates = new ArrayList<>();
-
+            
             if (intervalsOverlap1) {
                 // Move the ball in the opposite direction of player 1
                 if (orientation1.equals("ArrowUp")) {
+                    // Add a random value to the x coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewY += 2;
-                        // Add a random value to the x coordinate between -0.5 and 0.5
                         ballNewX += random.nextInt(2) - 1;
+                        ballNewY += 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 } else if (orientation1.equals("ArrowDown")) {
+                    // Add a random value to the x coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewY -= 2;
-                        // Add a random value to the x coordinate between -0.5 and 0.5
                         ballNewX += random.nextInt(2) - 1;
+                        ballNewY -= 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 } else if (orientation1.equals("ArrowLeft")) {
+                    // Add a random value to the y coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewX -= 2;
-                        // Add a random value to the y coordinate between -0.5 and 0.5
                         ballNewY += random.nextInt(2) - 1;
+                        ballNewX -= 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 } else if (orientation1.equals("ArrowRight")) {
+                    // Add a random value to the y coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewX += 2;
-                        // Add a random value to the y coordinate between -0.5 and 0.5
                         ballNewY += random.nextInt(2) - 1;
+                        ballNewX += 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 }
@@ -223,31 +226,35 @@ public class Game {
             if (intervalsOverlap2) {
                 // Move the ball in the opposite direction of player 2
                 if (orientation2.equals("ArrowUp")) {
+                    Random random = new Random();
+                    // Add a random value to the x coordinate between -0.25 and 0.25
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewY += 2;
-                        // Add a random value to the x coordinate between -0.5 and 0.5
                         ballNewX += random.nextInt(2) - 1;
+                        ballNewY += 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 } else if (orientation2.equals("ArrowDown")) {
+                    // Add a random value to the x coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewY -= 2;
-                        // Add a random value to the x coordinate between -0.5 and 0.5
                         ballNewX += random.nextInt(2) - 1;
+                        ballNewY -= 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 } else if (orientation2.equals("ArrowLeft")) {
+                    // Add a random value to the y coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewX -= 2;
-                        // Add a random value to the y coordinate between -0.5 and 0.5
                         ballNewY += random.nextInt(2) - 1;
+                        ballNewX -= 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 } else if (orientation2.equals("ArrowRight")) {
+                    // Add a random value to the y coordinate between -0.25 and 0.25
+                    Random random = new Random();
                     for (int i = 0; i < ballSpeed; i++) {
-                        ballNewX += 2;
-                        // Add a random value to the y coordinate between -0.5 and 0.5
                         ballNewY += random.nextInt(2) - 1;
+                        ballNewX += 2;
                         ballCoordinates.add(ballNewX + "," + ballNewY);
                     }
                 }
@@ -255,6 +262,34 @@ public class Game {
 
             // Print ballCoordinates
             System.out.println("Ball coordinates: " + ballCoordinates);
+
+            // Browse the ball coordinates and check if the ball leaves the field or if there is a goal
+            for (String coordinates : ballCoordinates) {
+                String[] parts = coordinates.split(",");
+                double x = Double.parseDouble(parts[0]);
+                double y = Double.parseDouble(parts[1]);
+
+                // Check if there is a goal
+                if ((x < 0 && y > 40 && y < 60) || (x > 100 && y > 40 && y < 60)) {
+                    // Reset the ball position to the center
+                    ball.setX(50);
+                    ball.setY(50);
+                    sendMessageToAllPlayers("ball:" + ball.getX() + "," + ball.getY());
+                    // Send the goal message to the front
+                    sendMessageToAllPlayers("goal:" + (x < 0 ? "player2" : "player1"));
+                    return true;
+                }
+
+                // Check if the ball leaves the field
+                if (x < 0 || x > 100 || y < 0 || y > 100) {
+                    // Reset the ball position to the center
+                    ball.setX(50);
+                    ball.setY(50);
+                    sendMessageToAllPlayers("ball:" + ball.getX() + "," + ball.getY());
+                    return true;
+                }
+                
+            }
 
             // Send the ball coordinates to the front with a delay of 30ms between each message
             for (String coordinates : ballCoordinates) {
