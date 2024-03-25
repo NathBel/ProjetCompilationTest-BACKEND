@@ -30,12 +30,16 @@
     width: 100%;
     position: relative;
     padding: 15px;
+    background-color: red;
 }
 
 .car {
     position: absolute;
     width: 5%;
     height: auto;
+    background-color: blue;
+    // la voiture est décalé par rapport à son centre
+    transition: ease-in 0.5ms;
 }
 
 #buttonJoinGame {
@@ -46,25 +50,26 @@
 }
 
 .rotated-up {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .rotated-down {
-    transform: rotate(180deg);
+    transform: translate(-50%, -50%) rotate(180deg);
 }
 
 .rotated-left {
-    transform: rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 .rotated-right {
-    transform: rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
 }
 
 #soccerBall {
     position: absolute;
     width: 3%;
     height: auto;
+    transform: translate(-50%, -50%);
 }
 
 #boxActionGame {
@@ -75,4 +80,50 @@
     margin: auto;
 }
 
+.pointTop {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(255, 238, 0);
+    border-radius: 50%;
+}
 
+.pointBottom {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(255, 132, 0);
+    border-radius: 50%;
+}
+
+.pointLeft {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(255, 0, 179);
+    border-radius: 50%;
+}
+
+.pointRight {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.pointCoordinate {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: blue;
+    border-radius: 50%;
+}
+
+.pointBall {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: yellow;
+    border-radius: 50%;
+}
