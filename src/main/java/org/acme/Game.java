@@ -124,13 +124,96 @@ public class Game {
         double top2 = y2 + height2 / 2;
         double bottom2 = y2 - height2 / 2;
 
-        System.out.println("Player 1: left1 : " + left1 + ", right 1:" + right1 + ", top1 :" + top1 + ", bottom1 :" + bottom1);
+        // System.out.println("Player 1: left1 : " + left1 + ", right 1:" + right1 + ", top1 :" + top1 + ", bottom1 :" + bottom1);
 
-        System.out.println("Player 2: left2" + left2 + ", right2" + right2 + ", top2" + top2 + ", bottom1" + bottom2);
+        // System.out.println("Player 2: left2" + left2 + ", right2" + right2 + ", top2" + top2 + ", bottom1" + bottom2);
 
 
         // Vérifier s'il y a une collision entre les deux voitures
         return intervalsOverlap(left1, right1, left2, right2) && intervalsOverlap(bottom1, top1, bottom2, top2);
+    }
+
+    private boolean handleBallCollision(double ballX, double ballY, Player player1, Player player2, String playerId, String otherPlayerId) {
+        // Récupérer les positions et les dimensions des voitures
+        double x1 = player1.getCar().getX();
+        double y1 = player1.getCar().getY();
+        String orientation1 = recentMovements.getOrDefault(playerId, "");
+        double width1 = CAR_WIDTH;
+        double height1 = CAR_HEIGHT;
+
+        double x2 = player2.getCar().getX();
+        double y2 = player2.getCar().getY();
+        String orientation2 = recentMovements.getOrDefault(otherPlayerId, "");
+        double width2 = CAR_WIDTH;
+        double height2 = CAR_HEIGHT;
+
+        if (orientation1.equals("ArrowUp") || orientation1.equals("ArrowDown")) {
+            width1 = CAR_HEIGHT;
+            height1 = CAR_WIDTH;
+        }
+
+        if (orientation2.equals("ArrowUp") || orientation2.equals("ArrowDown")) {
+            width2 = CAR_HEIGHT;
+            height2 = CAR_WIDTH;
+        }
+
+        // Calculer les boîtes englobantes pour chaque voiture
+        double left1 = x1 - width1 / 2;
+        double right1 = x1 + width1 / 2;
+        double top1 = y1 + height1 / 2;
+        double bottom1 = y1 - height1 / 2;
+
+        double left2 = x2 - width2 / 2;
+        double right2 = x2 + width2 / 2;
+        double top2 = y2 + height2 / 2;
+        double bottom2 = y2 - height2 / 2;
+
+        // Check if there is collision between the ball and the players
+        boolean intervalsOverlap1 = intervalsOverlap(left1, right1, ballX - 1, ballX + 1) && intervalsOverlap(bottom1, top1, ballY - 1, ballY + 1);
+        boolean intervalsOverlap2 = intervalsOverlap(left2, right2, ballX - 1, ballX + 1) && intervalsOverlap(bottom2, top2, ballY - 1, ballY + 1);
+        System.out.println("Collision between ball and player1: " + intervalsOverlap1);
+        System.out.println("Collision between ball and player2: " + intervalsOverlap2);
+
+        // Move the ball in the opposite direction
+        if (intervalsOverlap1 || intervalsOverlap2) {
+            double ballSpeed = 20;
+            double ballNewX = ball.getX();
+            double ballNewY = ball.getY();
+
+            if (intervalsOverlap1) {
+                // Move the ball in the opposite direction of player 1
+                if(orientation1.equals("ArrowUp")){
+                    ballNewY = ball.getY() + ballSpeed;
+                } else if(orientation1.equals("ArrowDown")){
+                    ballNewY = ball.getY() - ballSpeed;
+                } else if(orientation1.equals("ArrowLeft")){
+                    ballNewX = ball.getX() - ballSpeed;
+                } else if(orientation1.equals("ArrowRight")){
+                    ballNewX = ball.getX() + ballSpeed;
+                }
+            }
+
+            if (intervalsOverlap2) {
+                // Move the ball in the opposite direction of player 2
+                if(orientation2.equals("ArrowUp")){
+                    ballNewY = ball.getY() + ballSpeed;
+                } else if(orientation2.equals("ArrowDown")){
+                    ballNewY = ball.getY() - ballSpeed;
+                } else if(orientation2.equals("ArrowLeft")){
+                    ballNewX = ball.getX() - ballSpeed;
+                } else if(orientation2.equals("ArrowRight")){
+                    ballNewX = ball.getX() + ballSpeed;
+                }
+            }
+
+            ball.setX(ballNewX);
+            ball.setY(ballNewY);
+
+            // Send the new ball coordinates to the front
+            sendMessageToAllPlayers("ball:" + ballNewX + "," + ballNewY);
+        }
+
+        return intervalsOverlap1 || intervalsOverlap2;
     }
 
 
@@ -223,10 +306,22 @@ public class Game {
 
         // Vérifier si le déplacement est valide (dans les limites du terrain et pas de collision entre les joueurs)
         if (isValidPosition(newX, newY)) {
+
+            // Print ball coordinates:
+            System.out.println("Ball coordinates: " + ball.getX() + ", " + ball.getY());
+
+            double ballX = ball.getX();
+            double ballY = ball.getY();
+
+            if(handleBallCollision(ballX, ballY, player, otherPlayer, playerId , otherPlayerId)){
+                System.out.println("Collision with ball");
+                return;
+            }
+
             if (checkCollision(player, otherPlayer, playerId , otherPlayerId)) {
                 // Il y a collision, ajuster les positions des deux joueurs en conséquence
 
-                System.out.println("Collision between players");
+                // System.out.println("Collision between players");
 
                 // Faire reculer les joueurs en fonction de leur vitesse
                 handleCollision(player, otherPlayer, playerId, otherPlayerId);
@@ -237,7 +332,7 @@ public class Game {
 
             } else {
 
-                System.out.println("No collision between players");
+                // System.out.println("No collision between players");
 
                 player.getCar().setX(newX);
                 player.getCar().setY(newY);
@@ -306,32 +401,32 @@ public class Game {
             double overlapX = (Math.min(right1, right2) - Math.max(left1, left2)) + 2.0;
             double overlapY = (Math.min(bottom1, bottom2) - Math.max(top1, top2)) + 2.0;
 
-            System.out.println("OverlapX: " + overlapX);
-            System.out.println("OverlapY: " + overlapY);
+            // System.out.println("OverlapX: " + overlapX);
+            // System.out.println("OverlapY: " + overlapY);
 
 
             // Faire reculer les voitures en fonction de la direction de la collision
             if (overlapX > overlapY) {
                 if (left1 > left2) {
                     // Collision à gauche
-                    System.out.println("Collision à gauche");
+                    // System.out.println("Collision à gauche");
                     player.getCar().setX(player.getCar().getX() - overlapX);
                     otherPlayer.getCar().setX(otherPlayer.getCar().getX() + overlapX);
                 } else {
                     // Collision à droite
-                    System.out.println("Collision à droite");
+                    // System.out.println("Collision à droite");
                     player.getCar().setX(player.getCar().getX() + overlapX);
                     otherPlayer.getCar().setX(otherPlayer.getCar().getX() - overlapX);
                 }
             } else {
                 if (top1 > top2) {
                     // Collision en haut
-                    System.out.println("Collision en haut");
+                    // System.out.println("Collision en haut");
                     player.getCar().setY(player.getCar().getY() - overlapY);
                     otherPlayer.getCar().setY(otherPlayer.getCar().getY() + overlapY);
                 } else {
                     // Collision en bas
-                    System.out.println("Collision en bas");
+                    // System.out.println("Collision en bas");
                     player.getCar().setY(player.getCar().getY() + overlapY);
                     otherPlayer.getCar().setY(otherPlayer.getCar().getY() - overlapY);
                 }

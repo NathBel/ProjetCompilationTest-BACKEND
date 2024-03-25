@@ -46,13 +46,6 @@ const GameSection = (props) => {
 
     useEffect(() => {
         updatePointsPlayer1();
-        // Display coordinates of points of player1
-        console.log("Coordinates player1: ", coordinatesPlayer1)
-        console.log("************** Update points **************")
-        console.log("Top point: ", topPointPlayer1)
-        console.log("Bottom point: ", bottomPointPlayer1)
-        console.log("Left point: ", leftPointPlayer1)
-        console.log("Right point: ", rightPointPlayer1)
     }, [coordinatesPlayer1, sizePlayer1]);
 
 
@@ -150,11 +143,11 @@ const GameSection = (props) => {
                     props.handleShowAlertMessage('Game stopped!', 'success');
                     setIsGameStarted(false);
                 } else if (messageType === "player1,width") {
-                    console.log('Width player1: ', messageContent);
+                    // console.log('Width player1: ', messageContent);
                     const [width, height] = messageContent.split(',').map(value => parseFloat(value));
                     setSizePlayer1({ width: width, height: height });
                 } else if (messageType === "player2,width") {
-                    console.log('Width player2: ', messageContent);
+                    // console.log('Width player2: ', messageContent);
                     const [width, height] = messageContent.split(',').map(value => parseFloat(value));
                     setSizePlayer2({ width: width, height: height });
                 } else { 
