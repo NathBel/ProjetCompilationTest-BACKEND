@@ -137,10 +137,15 @@ const GameSection = (props) => {
                     console.log('Coordinates ball: ', messageContent);
                     const [coordinateX, coordinateY] = messageContent.split(',').map(value => parseFloat(value));
                     setCoordinatesBall({ x: coordinateX, y: coordinateY });
-                } else if (event.data === "game:stopped") {
+                } else if (event.data === "game:ended") {
                     console.log(event.data);
-                    props.handleShowAlertMessage('Game stopped!', 'success');
-                    setIsGameStarted(false);
+                    props.handleShowAlertMessage('End of the game!', 'success');
+                    setIsGameJoin(false)
+                    setIsAskToJoin(false)
+                    setIsGameStarted(false)
+                    // setTwoPlayerConnected(false)
+                    setGoalsPlayer1(0)
+                    setGoalsPlayer2(0)
                 } else if (messageType === "player1,width") {
                     // console.log('Width player1: ', messageContent);
                     const [width, height] = messageContent.split(',').map(value => parseFloat(value));
@@ -156,7 +161,7 @@ const GameSection = (props) => {
                     } else if (messageContent === "player2") {
                         setGoalsPlayer2(prevState => prevState + 1);
                     }
-                    props.handleShowAlertMessage('BUUUUUUUUUUUUUT !', 'success');
+                    props.handleShowAlertMessage('GOOOOOOOOOOAL !', 'success');
                 } else if (messageType === "timer") {
                     // Remaining time in seconds
                     console.log('Remaining time: ', messageContent);
