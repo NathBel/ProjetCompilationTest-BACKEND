@@ -1,3 +1,5 @@
+package org.acme;
+
 public class GeneratedClass {
   public static int[] getCoordinates() {
     int x = 0;

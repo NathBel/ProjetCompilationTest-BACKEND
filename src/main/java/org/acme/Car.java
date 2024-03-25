@@ -10,6 +10,11 @@ public class Car {
         this.y = y;
     }
 
+    public Car() {
+        this.x = 0;
+        this.y = 0;
+    }
+
     public double getX() {
         return x;
     }
