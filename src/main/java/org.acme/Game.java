@@ -25,7 +25,7 @@ public class Game {
     private Map<String, Double> speeds = new HashMap<>();
 
 
-    int duration = 120;
+    int duration;
 
     private ScheduledExecutorService timer;
     private boolean gameStarted = false;
@@ -74,6 +74,9 @@ public class Game {
 
         switch (message) {
             case "start":
+
+                duration = 120;
+
                 ball.setX(50);
                 ball.setY(50);
 

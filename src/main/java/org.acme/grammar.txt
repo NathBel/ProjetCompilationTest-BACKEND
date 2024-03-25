@@ -1,0 +1,4 @@
+grammar simplerlang;
+
+program : statement+;
+statement : droite | gauche | haut | bas;
