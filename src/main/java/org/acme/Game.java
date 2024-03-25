@@ -2,6 +2,9 @@ package org.acme;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Game {
 
@@ -176,40 +179,97 @@ public class Game {
 
         // Move the ball in the opposite direction
         if (intervalsOverlap1 || intervalsOverlap2) {
-            double ballSpeed = 20;
+            double ballSpeed = 10;
             double ballNewX = ball.getX();
             double ballNewY = ball.getY();
 
+            Random random = new Random();
+
+            List<String> ballCoordinates = new ArrayList<>();
+
             if (intervalsOverlap1) {
                 // Move the ball in the opposite direction of player 1
-                if(orientation1.equals("ArrowUp")){
-                    ballNewY = ball.getY() + ballSpeed;
-                } else if(orientation1.equals("ArrowDown")){
-                    ballNewY = ball.getY() - ballSpeed;
-                } else if(orientation1.equals("ArrowLeft")){
-                    ballNewX = ball.getX() - ballSpeed;
-                } else if(orientation1.equals("ArrowRight")){
-                    ballNewX = ball.getX() + ballSpeed;
+                if (orientation1.equals("ArrowUp")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewY += 2;
+                        // Add a random value to the x coordinate between -0.5 and 0.5
+                        ballNewX += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                } else if (orientation1.equals("ArrowDown")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewY -= 2;
+                        // Add a random value to the x coordinate between -0.5 and 0.5
+                        ballNewX += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                } else if (orientation1.equals("ArrowLeft")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewX -= 2;
+                        // Add a random value to the y coordinate between -0.5 and 0.5
+                        ballNewY += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                } else if (orientation1.equals("ArrowRight")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewX += 2;
+                        // Add a random value to the y coordinate between -0.5 and 0.5
+                        ballNewY += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
                 }
             }
 
             if (intervalsOverlap2) {
                 // Move the ball in the opposite direction of player 2
-                if(orientation2.equals("ArrowUp")){
-                    ballNewY = ball.getY() + ballSpeed;
-                } else if(orientation2.equals("ArrowDown")){
-                    ballNewY = ball.getY() - ballSpeed;
-                } else if(orientation2.equals("ArrowLeft")){
-                    ballNewX = ball.getX() - ballSpeed;
-                } else if(orientation2.equals("ArrowRight")){
-                    ballNewX = ball.getX() + ballSpeed;
+                if (orientation2.equals("ArrowUp")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewY += 2;
+                        // Add a random value to the x coordinate between -0.5 and 0.5
+                        ballNewX += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                } else if (orientation2.equals("ArrowDown")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewY -= 2;
+                        // Add a random value to the x coordinate between -0.5 and 0.5
+                        ballNewX += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                } else if (orientation2.equals("ArrowLeft")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewX -= 2;
+                        // Add a random value to the y coordinate between -0.5 and 0.5
+                        ballNewY += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                } else if (orientation2.equals("ArrowRight")) {
+                    for (int i = 0; i < ballSpeed; i++) {
+                        ballNewX += 2;
+                        // Add a random value to the y coordinate between -0.5 and 0.5
+                        ballNewY += random.nextInt(2) - 1;
+                        ballCoordinates.add(ballNewX + "," + ballNewY);
+                    }
+                }
+            }
+
+            // Print ballCoordinates
+            System.out.println("Ball coordinates: " + ballCoordinates);
+
+            // Send the ball coordinates to the front with a delay of 30ms between each message
+            for (String coordinates : ballCoordinates) {
+                sendMessageToAllPlayers("ball:" + coordinates);
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
             ball.setX(ballNewX);
             ball.setY(ballNewY);
 
-            // Send the new ball coordinates to the front
+            // Send the final ball coordinates to the front
             sendMessageToAllPlayers("ball:" + ballNewX + "," + ballNewY);
         }
 

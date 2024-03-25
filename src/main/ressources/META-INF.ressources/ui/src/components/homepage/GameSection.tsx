@@ -96,14 +96,12 @@ const GameSection = (props) => {
                         case "rotateLeft":
                         case "rotateRight":
                         case "rotateDown":
-                            console.log('Rotation player1: ', messageContent);
                             setCoordinatesPlayer1(prevState => ({
                                 ...prevState,
                                 rotation: messageContent
                             }));    
                             break;
                         default:
-                            console.log('Coordinates player1: ', messageContent);
                             const [coordinateX, coordinateY] = messageContent.split(',').map(value => parseFloat(value));
                             setCoordinatesPlayer1(prevState => ({
                                 ...prevState,
@@ -118,14 +116,12 @@ const GameSection = (props) => {
                         case "rotateLeft":
                         case "rotateRight":
                         case "rotateDown":
-                            console.log('Rotation player2: ', messageContent);
                             setCoordinatesPlayer2(prevState => ({
                                 ...prevState,
                                 rotation: messageContent
                             }));    
                             break;
                         default:
-                            console.log('Coordinates player2: ', messageContent);
                             const [coordinateX, coordinateY] = messageContent.split(',').map(value => parseFloat(value));
                             setCoordinatesPlayer2(prevState => ({
                                 ...prevState,
@@ -193,7 +189,6 @@ const GameSection = (props) => {
             return;
         }
         webSocket.send(message);
-        console.log("==============Message sent !=================== : ", message)
     }
     
     const startGame = () => {
@@ -215,10 +210,7 @@ const GameSection = (props) => {
                 case 'ArrowLeft':
                 case 'ArrowRight':
                     event.preventDefault(); // Prevent scrolling
-                    // move:player1:ArrowUp
                     let message = `move:${currentPlayer}-${event.key}` 
-                    console.log("=========== Message to send: ")
-                    console.log(message)
                     sendMessageToServer(message)
                     break;
                 default:
