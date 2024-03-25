@@ -118,6 +118,10 @@ public class Game {
         }
     }
 
+    private boolean intervalsOverlap(double a1, double a2, double b1, double b2) {
+        return !(a1 >= b2 || a2 <= b1);
+    }
+
     private boolean handleBallCollision(double ballX, double ballY, Player player1, Player player2, String playerId, String otherPlayerId) {
         // Récupérer les positions et les dimensions des voitures
         double x1 = player1.getCar().getX();
