@@ -53,7 +53,6 @@ public class GameWebSocket implements QuarkusApplication {
 
             //Cast playerCount to String
             String message = Integer.toString(playerCount);
-            System.out.println("Nb players: " + message);
             //délai de 1 seconde
             try {
                 Thread.sleep(1000);
@@ -75,7 +74,6 @@ public class GameWebSocket implements QuarkusApplication {
     @OnMessage
     public void onMessage(String message) {
         // process incoming message and update game state
-        System.out.println("Message received: " + message);
         gameService.processMessage(gameId, message);
     }
 
@@ -92,7 +90,6 @@ public class GameWebSocket implements QuarkusApplication {
 
     public void sendMessageToSession(Session session, String message) {
         if (session.isOpen()) {
-            System.out.println("Sending message " + message + " to session: " + session.getId() + "\n");
             session.getAsyncRemote().sendText(message);
         } else {
             sessions.remove(session);
@@ -100,10 +97,8 @@ public class GameWebSocket implements QuarkusApplication {
     }
 
     public void sendMessageToAll(String message) {
-        System.out.print("Sending message to all players: " + message + "\n");
         sessions.forEach(session -> {
             if (session.isOpen()) {
-                System.out.println("Sending message to session: " + session.getId() + "\n");
                 session.getAsyncRemote().sendText(message);
             } else {
                 System.out.println("Session is closed, cannot send message: " + session.getId() + "\n");

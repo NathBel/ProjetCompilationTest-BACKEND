@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
-public class Compilator {
+public class Compiler {
 
     public void compile(String filename) {
         try {
@@ -73,11 +73,6 @@ public class Compilator {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        Compilator compilator = new Compilator();
-        compilator.compile("input.txt");
     }
 
 }
