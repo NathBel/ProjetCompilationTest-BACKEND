@@ -1,0 +1,21 @@
+@import "../../abstract/variables.module.scss";
+
+.boxAlert {
+    top: calc($minHeightAppBarSmallScreen + 10px);
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+
+.alert {
+    padding: 6px 24px;
+}
+
+// /* Medium and Largedevices (tablets/laptops/desktops, $breakpointMD + 1px and up) */
+// @media only screen and (min-width: $breakpointMD){
+//     .boxAlert {
+//         top: calc($minHeightAppBarWideScreen + 10px);
+//     }
+// }
