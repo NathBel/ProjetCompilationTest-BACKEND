@@ -28,8 +28,8 @@ jobs:
       
       - name: Copy Front-end Build to META-INF/resources
         run: |
-          mkdir -p src/main/resources/META-INF/resources
-          cp -R front-end/build/* src/main/resources/META-INF/resources/
+          mkdir -p back-end/src/main/resources/META-INF/resources
+          cp -R front-end/build/* back-end/src/main/resources/META-INF/resources/
       
       - name: Set execute permission for gradlew
         run: chmod +x gradlew
