@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import "./styles/styles.scss"
 import variables from "./styles/abstract/variables.module.scss"
 import HomePage from './pages/HomePage/HomePage.tsx';
-import TestPage from './pages/TestPage.tsx';
 
 let theme = createTheme({
   palette: {
@@ -119,7 +118,6 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<HomePage />}/>
                 <Route path="*" element={<Navigate replace to="/" />} />
-                <Route path="/test" element={<TestPage />}/>
             </Routes>
             </BrowserRouter>
         </StyledEngineProvider>
