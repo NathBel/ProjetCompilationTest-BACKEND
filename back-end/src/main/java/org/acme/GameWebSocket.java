@@ -9,6 +9,7 @@ import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.CloseReason;
+import io.quarkus.runtime.Quarkus;
 
 
 import java.io.IOException;
@@ -25,6 +26,14 @@ public class GameWebSocket implements QuarkusApplication {
 
     public Set<Session> getSessions() {
         return sessions;
+    }
+
+    @Override
+    public int run(String... args) throws Exception {
+        System.out.println("Welcome to the Game App");
+
+        Quarkus.waitForExit();
+        return 0;
     }
 
     @OnOpen
@@ -69,8 +78,6 @@ public class GameWebSocket implements QuarkusApplication {
         }
     }
 
-
-
     @OnMessage
     public void onMessage(String message) {
         // process incoming message and update game state
@@ -105,12 +112,6 @@ public class GameWebSocket implements QuarkusApplication {
                 sessions.remove(session);
             }
         });
-    }
-
-
-    @Override
-    public int run(String... args) throws Exception {
-        return 0;
     }
 }
 

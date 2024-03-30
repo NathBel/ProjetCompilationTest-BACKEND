@@ -5,6 +5,18 @@ plugins {
     id 'jacoco'
 }
 
+apply plugin: 'application'
+
+mainClassName = 'org.acme.Main'
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': mainClassName
+        )
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
