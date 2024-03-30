@@ -5,7 +5,6 @@ import footballStadium from "../../assets/footballStadium.webp"
 import greenCar from "../../assets/greenCar.webp"
 import redCar from "../../assets/redCar.webp"
 import soccerBall from "../../assets/soccerBall.webp"
-import MQTTClient from "../mqtt/MQTTClient.tsx";
 
 const GameSection = (props) => {
     const timeOfGame = 120;

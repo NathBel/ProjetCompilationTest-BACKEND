@@ -23,6 +23,8 @@ jobs:
           cd front-end
           npm install
           npm run build
+        env:
+          CI: false
       
       - name: Copy Front-end Build to META-INF/resources
         run: |
