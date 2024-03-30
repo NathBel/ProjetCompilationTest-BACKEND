@@ -8,8 +8,8 @@ build/
 .settings/
 bin/
 
-# IntelliJ
-.idea
+# IntelliJ IDEA
+.idea/
 *.ipr
 *.iml
 *.iws
@@ -18,7 +18,7 @@ bin/
 nb-configuration.xml
 
 # Visual Studio Code
-.vscode
+.vscode/
 .factorypath
 
 # OSX
@@ -28,12 +28,32 @@ nb-configuration.xml
 *.swp
 *.swo
 
-# patch
+# Patch files
 *.orig
 *.rej
 
-# Local environment
+# Local environment variables
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Plugin directory
+# Node.js dependencies
+front-end/node_modules/
+/.pnp
+.pnp.js
+
+# Coverage directory
+/coverage/
+
+# Build directories
+/build/
+
+# Plugin directory for Quarkus
 /.quarkus/cli/plugins/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
