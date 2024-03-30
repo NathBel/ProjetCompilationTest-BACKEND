@@ -32,7 +32,8 @@ jobs:
           cp -R front-end/build/* src/main/resources/META-INF/resources/
       
       - name: Set execute permission for gradlew
-        run: chmod +x back-end/gradlew
+        run: chmod +x gradlew
+        working-directory: back-end
       
       - name: Set up JDK 17
         uses: actions/setup-java@v2
@@ -42,6 +43,7 @@ jobs:
       
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: back-end
 
       - name: Build Docker Image
         run: docker build -f src/main/docker/Dockerfile.jvm -t quarkus/socket_car_game-jvm .
