@@ -23,6 +23,7 @@ jobs:
           cd front-end
           npm install
           npm run build
+          ls -l front-end/build
         env:
           CI: false
       
@@ -30,6 +31,7 @@ jobs:
         run: |
           mkdir -p back-end/src/main/resources/META-INF/resources
           cp -R front-end/build/* back-end/src/main/resources/META-INF/resources/
+          ls -l src/main/resources/META-INF/resources
       
       - name: Set execute permission for gradlew
         run: chmod +x gradlew
