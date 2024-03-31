@@ -2,7 +2,9 @@
 
 This is a simple multiplayer soccer car game application. Each player have a car that can move in 4 directions (up, down, left, right). The game ends after 2 minutes and the player with the most goals wins.
 
-![Screenshot](https://github.com/bastian-albaut/Car-game-app/blob/main/docs/images/headerReadme.png)
+<div align="center">
+    <img src="https://github.com/bastian-albaut/Car-game-app/blob/main/docs/images/headerReadme.png" width="60%" />
+</div>
 
 ## Built With
 
