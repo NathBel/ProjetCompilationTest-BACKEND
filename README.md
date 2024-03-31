@@ -1,60 +1,52 @@
-# code-with-quarkus
+# Soccer car game
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This is a simple multiplayer soccer car game application. Each player have a car that can move in 4 directions (up, down, left, right). The game ends after 2 minutes and the player with the most goals wins.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+![Screenshot](https://github.com/bastian-albaut/Car-game-app/blob/main/docs/images/headerReadme.png)
 
-## Running the application in dev mode
+## Built With
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./gradlew quarkusDev
-```
+- [Quarkus](https://quarkus.io/) A Java framework for building cloud-native applications.
+- [Java](https://www.java.com/) A high-level, class-based, object-oriented programming language.
+- [Websockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) A communication protocol that makes it possible to establish a two-way communication channel between a server and a client.
+- [React](https://reactjs.org/) A JavaScript library for building user interfaces.
+- [Typescript](https://www.typescriptlang.org/) A superset of JavaScript that adds optional types to the language.
+- [Material-UI](https://material-ui.com/) A popular React UI framework.
+- [Sass](https://sass-lang.com/) A CSS extension language.
+- [Docker](https://www.docker.com/) A platform for building, sharing, and running applications with containers.
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+## Getting Started
 
-## Packaging and running the application
+### Prerequisites
 
-The application can be packaged using:
-```shell script
-./gradlew build
-```
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
+- You need to have [Docker](https://www.docker.com/get-started/) installed on your machine.
 
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./gradlew build -Dquarkus.package.type=uber-jar
-```
+### Installation
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
+1. Pull the docker image from the docker hub:
+    ```sh
+    docker pull bastian8dev/socket_car_game-jvm:latest
+    ```
 
-## Creating a native executable
+2. Run the docker image:
+    ```sh
+    docker run -i --rm -p 8080:8080 bastian8dev/socket_car_game-jvm:latest
+    ```
 
-You can create a native executable using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native
-```
+3. Open two browsers and go to `http://localhost:8080/`
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
-```
+4. Enjoy the game!
 
-You can then execute your native executable with: `./build/code-with-quarkus-1.0.0-SNAPSHOT-runner`
+## Usage
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
+- Use the arrow keys to move the car.
+- The game ends after 2 minutes.
+- The player with the most goals wins.
 
-## Related Guides
+## Demo
 
-- RESTEasy Reactive ([guide](https://quarkus.io/guides/resteasy-reactive)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
+The project is available on the following link:
+[Soccer Car Game](https://socket-car-game-jvm-vkrm.onrender.com/)
 
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+*You have to open the link in two different browsers to play the game.*
