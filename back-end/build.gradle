@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'io.quarkus'
-    id "org.sonarqube" version "4.4.1.3373"
     id 'jacoco'
 }
 
@@ -29,7 +28,6 @@ dependencies {
     implementation("io.quarkus:quarkus-websockets")
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
-    testImplementation "io.quarkus:quarkus-jacoco"
     implementation 'org.mockito:mockito-core:3.11.2'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
 }
@@ -54,7 +52,6 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
-
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
     finalizedBy jacocoTestReport
@@ -63,19 +60,6 @@ test {
         destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
     }
     jacocoTestReport.enabled = true
-}
-
-sonar {
-    properties {
-        property "sonar.projectKey", "projet1"
-        property "sonar.token", "sqp_6a4e7cf9b1fa4b1353885e95269025a40ac7af76"
-        property "sonar.projectName", "projet1"
-        property "sonar.qualitygate.wait", true
-        property "sonar.host.url", "https://sonar.home.lange.xyz"
-        tasks.jacocoTestReport.configure {
-            property("sonar.coverage.jacoco.xmlReportPaths", ["build/reports/jacoco/test/jacocoTestReport.xml"])
-        }
-    }
 }
 
 jacocoTestReport{
